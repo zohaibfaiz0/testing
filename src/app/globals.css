@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header_top__icon_wrapper {
+    @apply bg-gray-200 rounded-md p-[6px] text-[14px] cursor-pointer hover:bg-[#ff8f9c] hover:text-white;
+  }
+  
+  .navbar__link {
+    position: relative; /* Ensure the link is positioned relative */
+    text-decoration: none; /* Remove default underline */
+  }
+
+  .navbar__link:hover {
+    color: #ff8f9c;
+    transition: all 0.4s;
+  }
+
+  .navbar__link::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #ff8f9c; /* Use background-color instead of color */
+    transition: all 0.4s;
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0); /* Change to scaleX */
+    transform-origin: left;
+  }
+
+  .navbar__link:hover::after {
+    transform: scaleX(1); /* Animate the scaleX on hover */
+  }
+}

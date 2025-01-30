@@ -6,17 +6,19 @@ type OrderPageParams = {
   orderId: string;
 };
 
-// Define metadata
+// Define the props type for the page
+type OrderPageProps = {
+  params: OrderPageParams;
+};
+
+// Define metadata for the page
 export const metadata: Metadata = {
   title: 'Order Confirmation',
 };
 
-// Define the page component with explicit typing
+// The main page component
 export default async function OrderConfirmationPage({
   params,
-}: {
-  params: OrderPageParams;
-}) {
-  // You can add server-side data fetching here if needed
+}: OrderPageProps) {
   return <OrderConfirmationClient orderId={params.orderId} />;
 }

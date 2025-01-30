@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }, // Input field for password
       },
       // Custom authorization logic
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         console.log('Authorizing credentials:', credentials);
 
         // Validate if both email and password are provided
@@ -68,6 +68,7 @@ export const authOptions: NextAuthOptions = {
           id: user._id, // User ID
           email: user.email, // User email
           name: user.name, // User name
+          username: user.name || "DefaultUsername", // Ensure 'username' is present
         };
       },
     }),

@@ -1,6 +1,6 @@
 // app/api/auth/[...nextauth]/route.ts
 
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { createClient } from '@sanity/client';
 import bcrypt from 'bcryptjs';
@@ -14,8 +14,8 @@ const sanityClient = createClient({
   token: process.env.SANITY_API_TOKEN,
 });
 
-// Define NextAuth options
-export const authOptions: NextAuthOptions = {
+// Define NextAuth handler
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -96,7 +96,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-};
+});
 
-const handler = NextAuth(authOptions);
+// Export the handler for GET and POST requests
 export { handler as GET, handler as POST };

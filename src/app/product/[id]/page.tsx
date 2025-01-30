@@ -4,32 +4,29 @@ import { ProductType } from '@/sanity/schemaTypes/productType';
 import { notFound } from 'next/navigation';
 import ProductDetailClient from '@/components/ProductDetailClient';
 
-// ✅ Ensure correct typing for static params
-export async function generateStaticParams(): Promise<{ id: string }[]> {
+// Generate static paths
+export async function generateStaticParams() {
   const products: ProductType[] = await fetchProducts();
   return products.map((product) => ({
-    id: product._id.toString(), // Ensure it's a string
+    id: product._id,
   }));
 }
 
-// ✅ Explicitly define the component's props
-type ProductDetailPageProps = {
-  params: { id: string };
-};
+// Simplified props type that matches Next.js expectations
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-// ✅ Ensure correct handling of params
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  if (!params || typeof params.id !== 'string') {
-    notFound();
-  }
+// Main component with server-side data fetching
+export default async function ProductDetailPage({ params }: PageProps) {
+  // Server-side validation
+  if (!params?.id) notFound();
 
-  try {
-    const product = await fetchProductById(params.id);
-    if (!product) notFound();
-    
-    return <ProductDetailClient product={product} />;
-  } catch (error) {
-    console.error('Error fetching product:', error);
-    notFound();
-  }
+  // Server-side data fetching
+  const product = await fetchProductById(params.id);
+  if (!product) notFound();
+
+  return <ProductDetailClient product={product} />;
 }

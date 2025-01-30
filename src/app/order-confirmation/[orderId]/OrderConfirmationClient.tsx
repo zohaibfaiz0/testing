@@ -1,6 +1,5 @@
 
 // File: src/app/order-confirmation/[orderId]/OrderConfirmationClient.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';

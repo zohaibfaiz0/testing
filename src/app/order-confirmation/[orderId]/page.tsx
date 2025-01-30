@@ -2,13 +2,17 @@
 
 import OrderConfirmationClient from './OrderConfirmationClient';
 
-interface PageProps {
-  params: {
-    orderId: string;
-  };
+type Props = {
+  params: { orderId: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function OrderConfirmationPage({ params }: PageProps) {
-  return <OrderConfirmationClient orderId={params.orderId} />;
+async function OrderConfirmationPage({ params, searchParams }: Props) {
+  return (
+    <div>
+      <OrderConfirmationClient orderId={params.orderId} />
+    </div>
+  );
 }
+
+export default OrderConfirmationPage;

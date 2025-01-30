@@ -16,13 +16,14 @@ export default async function ProductDetailPage({
 }: {
   params: { id: string };
 }) {
-  // Server-side validation
-  if (!params?.id) notFound();
+  // Validate params structure
+  if (!params?.id || typeof params.id !== 'string') {
+    notFound();
+  }
 
-  // Server-side data fetching
+  // Fetch and validate product
   const product = await fetchProductById(params.id);
   if (!product) notFound();
 
-  // Client component with pre-fetched data
   return <ProductDetailClient product={product} />;
 }

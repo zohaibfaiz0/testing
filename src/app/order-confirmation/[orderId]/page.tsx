@@ -1,20 +1,22 @@
-import OrderConfirmationClient from './OrderConfirmationClient';
 import { Metadata } from 'next';
+import OrderConfirmationClient from './OrderConfirmationClient';
 
-export const metadata: Metadata = {
-  title: 'Order Confirmation',
-};
-
+// Define the params type
 type OrderPageParams = {
   orderId: string;
 };
 
-type OrderPageProps = {
-  params: OrderPageParams;
+// Define metadata
+export const metadata: Metadata = {
+  title: 'Order Confirmation',
 };
 
+// Define the page component with explicit typing
 export default async function OrderConfirmationPage({
   params,
-}: OrderPageProps) {
+}: {
+  params: OrderPageParams;
+}) {
+  // You can add server-side data fetching here if needed
   return <OrderConfirmationClient orderId={params.orderId} />;
 }

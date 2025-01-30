@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 import { Order } from '@/types/order';
 
-interface OrderConfirmationPageProps {
+interface PageProps {
   params: {
     orderId: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function OrderConfirmation({ params }: OrderConfirmationPageProps) {
+export default function OrderConfirmation({ params, searchParams }: PageProps) {
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -80,6 +81,7 @@ export default function OrderConfirmation({ params }: OrderConfirmationPageProps
             <p><span className="font-medium">Order ID:</span> {params.orderId}</p>
             <p><span className="font-medium">Status:</span> {order.status}</p>
             <p><span className="font-medium">Date:</span> {new Date(order.createdAt).toLocaleString()}</p>
+            <p><span className="font-medium">Delivery Option:</span> {order.deliveryOption}</p>
             <p><span className="font-medium">Total:</span> ${order.total.toFixed(2)}</p>
           </div>
         </div>
@@ -102,6 +104,7 @@ export default function OrderConfirmation({ params }: OrderConfirmationPageProps
                 <div>
                   <p className="font-medium">Product ID: {item.productId}</p>
                   <p className="text-gray-600">Quantity: {item.quantity}</p>
+                  <p className="text-gray-600">Price per unit: ${item.price.toFixed(2)}</p>
                 </div>
                 <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
               </div>

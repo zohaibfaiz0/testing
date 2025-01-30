@@ -1,18 +1,20 @@
 // File: src/app/order-confirmation/[orderId]/page.tsx
 
 import OrderConfirmationClient from './OrderConfirmationClient';
+import { Metadata } from 'next';
 
-type Props = {
-  params: { orderId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+export const metadata: Metadata = {
+  title: 'Order Confirmation',
+};
+
+type OrderPageParams = {
+  orderId: string;
+};
+
+export default async function OrderConfirmationPage({
+  params,
+}: {
+  params: OrderPageParams;
+}) {
+  return <OrderConfirmationClient orderId={params.orderId} />;
 }
-
-async function OrderConfirmationPage({ params, searchParams }: Props) {
-  return (
-    <div>
-      <OrderConfirmationClient orderId={params.orderId} />
-    </div>
-  );
-}
-
-export default OrderConfirmationPage;

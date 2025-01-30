@@ -1,5 +1,3 @@
-// File: src/app/order-confirmation/[orderId]/page.tsx
-
 import OrderConfirmationClient from './OrderConfirmationClient';
 import { Metadata } from 'next';
 
@@ -11,10 +9,12 @@ type OrderPageParams = {
   orderId: string;
 };
 
+type OrderPageProps = {
+  params: OrderPageParams;
+};
+
 export default async function OrderConfirmationPage({
   params,
-}: {
-  params: OrderPageParams;
-}) {
+}: OrderPageProps) {
   return <OrderConfirmationClient orderId={params.orderId} />;
 }
